@@ -13,8 +13,8 @@ We hope everyone has git installed in their systems. Here are some basic git bas
 
 **git branch -M main** #(to move to the main branch just incase you aren't)
 
-**git remote add origin https://github.com/PranavBykampadi/NPSKhack-INR_1.git
-**
+**git remote add origin https://github.com/PranavBykampadi/NPSKhack-INR_1.git**
+
 **git push -u -f origin main** #(the -u switch makes the remote GitHub repo the default for your existing project. The -f switch forces Git to overwrite any files that already exist on GitHub with your existing project’s files)
 
 If you have any git doubts feel free to search the same online or inform your volunteer.
