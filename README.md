@@ -1,4 +1,4 @@
-# NPSKhack-INR_1
+# NPSKhack-INR
 Welcome to NPSk-hack 2023! This is your official github repository. We will track your submissions via this repository. Your team can use this repository as a general version control system, but we need at least one push hourly to prevent any plagiarism. **Your final submission code should be uploaded in this repository by the end of day 1 without fail.**
 
 We hope everyone has git installed in their systems. Here are some basic git bash commands you may need.
