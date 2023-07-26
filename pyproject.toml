@@ -12,6 +12,7 @@ python = ">=3.11,<3.12"
 nltk = "^3.8.1"
 pyside6 = "^6.5.1.1"
 opencv-python = "^4.8.0.74"
+requests = "^2.31.0"
 
 
 [build-system]
