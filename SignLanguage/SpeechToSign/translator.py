@@ -76,3 +76,44 @@ class ISLConverter:
                 parsed_tree.remove(subtree)
 
         return parsed_tree
+
+    def convert_to_isl(self, input_string: str) -> str:
+        """
+        Convert an input English sentence to Indian Sign Language (ISL) sentence.
+
+        Args:
+            input_string (str): The input English sentence.
+
+        Returns:
+            str: The converted ISL sentence.
+        """
+        # Parse the English text
+        english_tree = [tree for tree in self.parser.parse(input_string.split())]
+        parse_tree = english_tree[0]
+        parent_tree = ParentedTree.convert(parse_tree)
+
+        # Reorder for ISL grammar needs
+        reordered_tree = self.reorder_for_isl(parent_tree)
+
+        # Remove unwanted words (parts of speech)
+        cleaned_tree = self.remove_unwanted_words(reordered_tree)
+
+        # Extract the lemmatized words
+        parsed_sent = cleaned_tree.leaves()
+        lemmatized_words = [self.stemmer.stem(w) for w in parsed_sent]
+
+        # Remove stopwords
+        isl_sentence = [w for w in lemmatized_words if w.lower() not in self.stop_words]
+
+        # Identify and place the question word at the end of the sentence
+        question_word = None
+        for word in isl_sentence:
+            if word in ["what", "when", "where", "why", "who", "how"]:
+                question_word = word
+                isl_sentence.remove(word)
+                break
+
+        if question_word:
+            isl_sentence.append(question_word)
+
+        return " ".join(isl_sentence)
