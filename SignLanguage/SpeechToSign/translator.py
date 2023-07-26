@@ -54,3 +54,25 @@ class ISLConverter:
                 parsed_tree[np_position[-1] + 1:np_position[-1] + 1] = [vp_subtree]
 
         return parsed_tree
+
+    def remove_unwanted_words(self, parsed_tree: ParentedTree) -> ParentedTree:
+        """
+        Remove unwanted parts of speech from the parse tree for Indian Sign Language (ISL) conversion.
+
+        Args:
+            parsed_tree (ParentedTree): The parsed tree of the sentence.
+
+        Returns:
+            ParentedTree: The parse tree with unwanted parts of speech removed.
+        """
+        unwanted_parts_of_speech = ["TO", "POS", "MD", "FW", "CC", "DT", "JJR", "JJS", "NNS", "NNPS", "RP", "SYM", "UH",
+                                    "VB", "VBD", "VBG", "VBN", "VBP", "VBZ", "PDT", "PRP$", "PRP"]
+        subtrees_to_remove = [subtree for subtree in
+                              parsed_tree.subtrees(lambda t: t.label() in unwanted_parts_of_speech)]
+
+        # Remove collected subtrees
+        for subtree in subtrees_to_remove:
+            if subtree in parsed_tree:
+                parsed_tree.remove(subtree)
+
+        return parsed_tree
