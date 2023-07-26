@@ -9,6 +9,7 @@ packages = [{include = "npskhack_inr"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+nltk = "^3.8.1"
 
 
 [build-system]
