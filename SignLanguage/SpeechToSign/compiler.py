@@ -1,7 +1,7 @@
 #  Copyright (c) 2023 Harikeshav R
 #  All rights reserved.
 
-import pickle
+import os
 
 import cv2
 
@@ -18,34 +18,11 @@ class VideoDisplayer:
         self.window_name = window_name
         self.delay_between_signs = 1000 // 30
         self.frame_rate = 60
-        with open('data/known_words.dat', 'rb') as file:
-            self.known_words = pickle.load(file)
+
+        self.data = os.listdir("data/videos/")
+
         self.rescale = 2
         self.create_window()
-
-    def known(self, word: str) -> bool:
-        """
-        Check if the word is known.
-
-        Parameters:
-        - word (str): The word to check.
-
-        Returns:
-        - bool: True if the word is known, False otherwise.
-
-        """
-        low = 0
-        high = len(self.known_words) - 1
-        mid = 0
-        while low <= high:
-            mid = (high + low) // 2
-            if self.known_words[mid] < word:
-                low = mid + 1
-            elif self.known_words[mid] > word:
-                high = mid - 1
-            else:
-                return True
-        return False
 
     def create_window(self) -> None:
         """
@@ -67,18 +44,25 @@ class VideoDisplayer:
 
         """
         cap = cv2.VideoCapture(path)
+
         if not cap.isOpened():
             print("Does not exist:", path[8:-4])
         while cap.isOpened():
+
             ret, frame = cap.read()
+
             if ret:
                 if cv2.getWindowProperty(self.window_name, cv2.WND_PROP_VISIBLE) < 1:
                     self.create_window()
+
                 cv2.imshow(self.window_name, frame)
+
                 if cv2.waitKey(1000 // self.frame_rate) & 0xFF == ord('q'):
                     break
+
             else:
                 break
+
         cap.release()
 
     def show(self, words: list[str]) -> None:
@@ -90,11 +74,14 @@ class VideoDisplayer:
 
         """
         for word in words:
-            if self.known(word.capitalize()):
-                self.display_word(f'data/videos/{word.capitalize()}.mp4')
+            if os.path.exists(f"data/videos/{word}.mp4"):
+                self.display_word(f"data/videos/{word}.mp4")
+
             else:
                 for char in word:
-                    self.display_word(f'data/videos/{char.capitalize()}.mp4')
+                    self.display_word(f'data/videos/{char}.mp4')
+
+            cv2.waitKey(500)
 
     def destroy(self) -> None:
         """
