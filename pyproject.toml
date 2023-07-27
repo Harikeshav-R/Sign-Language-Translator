@@ -1,11 +1,10 @@
 [tool.poetry]
-name = "npskhack-inr"
+name = "sign-language-translator"
 version = "0.1.0"
 description = "Sign Language Translator"
 authors = ["Harikeshav R <r.harikeshav@gmail.com>"]
 license = "GNU General Public License v3.0"
 readme = "README.md"
-packages = [{include = "npskhack_inr"}]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.12"
